@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Odyssey | Authentication Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <canvas id="interactive-canvas"></canvas>
+    
+    <div class="container">
+        <!-- Giriş Formu -->
+        <div class="form-container active" data-form="login">
+            <div class="form-wrapper">
+                <div class="logo"><i class="fas fa-compass"></i><span>Odyssey</span></div>
+                <h2 class="form-title">Kapıdan Geç</h2>
+                <form id="login-form" novalidate>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="login-username" name="kullanici_adi" required placeholder=" ">
+                        <label for="login-username">Kullanıcı Adı</label>
+                        <span class="error-message">Bu alan zorunludur.</span>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" name="sifre" required placeholder=" ">
+                        <label for="login-password">Şifre</label>
+                        <i class="fas fa-eye-slash toggle-password"></i>
+                        <span class="error-message">Bu alan zorunludur.</span>
+                    </div>
+                    <div class="options">
+                        <label class="remember-me"><input type="checkbox" name="remember_me"> Beni Hatırla</label>
+                        <a href="#" class="form-link" data-target="forgot">Şifremi Unuttum</a>
+                    </div>
+                    <button type="submit" class="btn">
+                        <span class="btn-text">Giriş Yap</span>
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </button>
+                </form>
+                <div class="social-logins">
+                    <p>Veya şununla devam et</p>
+                    <div class="social-icons">
+                        <a href="php/social_login.php?provider=google" class="social-icon" title="Google ile Giriş Yap"><i class="fab fa-google"></i></a>
+                        <a href="php/social_login.php?provider=github" class="social-icon" title="GitHub ile Giriş Yap"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <p class="form-switch">Hesabın yok mu? <a href="#" class="form-link" data-target="register">Maceraya Başla</a></p>
+                <div class="message" id="login-message"></div>
+            </div>
+        </div>
+
+        <!-- Kayıt Formu -->
+        <div class="form-container" data-form="register">
+            <div class="form-wrapper">
+                 <div class="logo"><i class="fas fa-user-astronaut"></i><span>Hesap Oluştur</span></div>
+                <h2 class="form-title">Maceraya Katıl</h2>
+                <form id="register-form" novalidate>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="register-username" name="kullanici_adi" required minlength="3" placeholder=" ">
+                        <label for="register-username">Kullanıcı Adı</label>
+                        <span class="error-message">Kullanıcı adı en az 3 karakter olmalıdır.</span>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="register-email" name="email" required placeholder=" ">
+                        <label for="register-email">E-posta</label>
+                        <span class="error-message">Lütfen geçerli bir e-posta adresi girin.</span>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-password" name="sifre" required placeholder=" ">
+                        <label for="register-password">Şifre</label>
+                        <i class="fas fa-eye-slash toggle-password"></i>
+                        <span class="error-message">Şifre alanı boş bırakılamaz.</span>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar-container"><div class="strength-bar"></div></div>
+                        <span class="strength-text"></span>
+                    </div>
+                    <button type="submit" class="btn">
+                        <span class="btn-text">Kayıt Ol</span>
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </button>
+                </form>
+                <p class="form-switch">Zaten bir yıldız mısın? <a href="#" class="form-link" data-target="login">Giriş Yap</a></p>
+                <div class="message" id="register-message"></div>
+            </div>
+        </div>
+
+        <!-- Şifremi Unuttum Formu -->
+        <div class="form-container" data-form="forgot">
+            <div class="form-wrapper">
+                 <div class="logo"><i class="fas fa-key"></i><span>Şifre Sıfırla</span></div>
+                <h2 class="form-title">Parolanı mı unuttun?</h2>
+                <p class="form-info-text">Sorun değil. E-posta adresinizi girin, size parolanızı sıfırlamanız için bir bağlantı gönderelim.</p>
+                <form id="forgot-form" novalidate>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="forgot-email" name="email" required placeholder=" ">
+                        <label for="forgot-email">E-posta Adresi</label>
+                        <span class="error-message">Lütfen geçerli bir e-posta adresi girin.</span>
+                    </div>
+                    <button type="submit" class="btn">
+                        <span class="btn-text">Sıfırlama Linki Gönder</span>
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </button>
+                </form>
+                <p class="form-switch"><a href="#" class="form-link" data-target="login"><i class="fas fa-arrow-left"></i> Giriş Ekranına Dön</a></p>
+                <div class="message" id="forgot-message"></div>
+            </div>
+        </div>
+        
+        <!-- İki Faktörlü Kimlik Doğrulama (2FA) Paneli -->
+        <div class="form-container" data-form="2fa">
+            <div class="form-wrapper">
+                <div class="logo"><i class="fas fa-shield-halved"></i><span>Güvenlik Doğrulaması</span></div>
+                <h2 class="form-title">Yıldız Tozu Kodu</h2>
+                <p class="form-info-text">Güvenliğiniz için, lütfen doğrulama uygulamanızdan aldığınız 6 haneli kodu girin.</p>
+                <form id="2fa-form" novalidate>
+                    <div class="pincode-input-container">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pincode-input" required>
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pincode-input" required>
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pincode-input" required>
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pincode-input" required>
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pincode-input" required>
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pincode-input" required>
+                    </div>
+                    <button type="submit" class="btn">
+                        <span class="btn-text">Doğrula</span>
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </button>
+                </form>
+                <p class="form-switch"><a href="#" class="form-link" data-target="login"><i class="fas fa-arrow-left"></i> Geri Dön</a></p>
+                <div class="message" id="2fa-message"></div>
+            </div>
+        </div>
+
+        <!-- Başarı Paneli -->
+        <div class="form-container" data-form="success">
+            <div class="form-wrapper">
+                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                <h2 class="form-title">Talep Alındı</h2>
+                <p class="form-info-text">Şifre sıfırlama bağlantınız e-posta adresinize başarıyla gönderildi. Lütfen gelen kutunuzu kontrol edin.</p>
+                <button class="btn form-link" data-target="login">
+                    <span class="btn-text">Giriş Ekranına Dön</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <footer class="credits">designed and developed with ❤️ by napk3n</footer>
+    <script src="js/script.js"></script>
+</body>
+</html>
