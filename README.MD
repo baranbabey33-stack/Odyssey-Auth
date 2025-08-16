@@ -47,7 +47,7 @@ Follow the steps below to run this project on your local server.
 Clone this repository to your computer or download it as a ZIP file.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_PROJECT_NAME.git
-
+git clone https://github.com/baranbabey33-stack/Odyssey-Auth
 cd YOUR_PROJECT_NAME
+
 
