@@ -1,6 +1,6 @@
 # Odyssey | Interactive Authentication Experience
 
-![Odyssey Login Demo](https://i.hizliresim.com/1vdi1h9.png)
+[![Image](https://i.hizliresim.com/1vdi1h9.png)](https://hizliresim.com/1vdi1h9)
 
 **Odyssey** is an interactive and aesthetically-driven authentication interface that goes beyond mundane, boring forms. It takes the user on a journey with a live particle network that responds to mouse movements, a premium "aurora" glass effect, and next-generation user experience features, turning the entry point of your project into an unforgettable experience.
 
@@ -50,3 +50,4 @@ Clone this repository to your computer or download it as a ZIP file.
 git clone https://github.com/YOUR_USERNAME/YOUR_PROJECT_NAME.git
 
 cd YOUR_PROJECT_NAME
+
