@@ -1,0 +1,141 @@
+/* ================================================================
+   ODYSSEY THEME | designed and developed with ❤️ by napk3n
+   ================================================================ */
+
+:root {
+    --bg-color: #030014; --primary-color: #ffffff; --text-color: #c0c8f3;
+    --input-bg: rgba(21, 14, 61, 0.5); --border-color: rgba(122, 110, 255, 0.2);
+    --aurora-gradient: linear-gradient(120deg, #00c6ff 0%, #a855f7 50%, #f77062 100%);
+    --link-color: #00c6ff; --error-color: #ff5c7a; --success-color: #34d399;
+    --font-family: 'Poppins', sans-serif; --radius-xl: 24px; --radius-md: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; }
+
+body {
+    font-family: var(--font-family); background-color: var(--bg-color); color: var(--text-color);
+    min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center;
+    padding: 2rem 1rem; overflow: hidden;
+}
+
+#interactive-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+.container { position: relative; width: 100%; max-width: 500px; perspective: 2000px; }
+
+.form-container {
+    width: 100%; opacity: 0; pointer-events: none;
+    position: absolute; top: 50%; left: 0;
+    transform: translateY(calc(-50% + 30px)) rotateX(-15deg);
+    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.form-container.active { 
+    opacity: 1; pointer-events: auto; transform: translateY(-50%) rotateX(0deg); 
+}
+.form-wrapper {
+    --mouse-x: 50%; --mouse-y: 50%;
+    position: relative; background: rgba(3, 0, 20, 0.65); backdrop-filter: blur(25px) saturate(1.5);
+    border: 1px solid var(--border-color); border-radius: var(--radius-xl);
+    padding: 3rem; text-align: center; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+.form-wrapper::before {
+    content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 100%; border-radius: var(--radius-xl);
+    background: radial-gradient(circle 400px at var(--mouse-x) var(--mouse-y), rgba(168, 85, 247, 0.25), transparent);
+    opacity: 0; transition: opacity 0.5s; pointer-events: none;
+}
+.form-wrapper:hover::before { opacity: 1; }
+.form-wrapper::after {
+    content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03; z-index: -1; pointer-events: none;
+}
+
+.logo { display: flex; justify-content: center; align-items: center; gap: 0.75rem; font-size: 2.2rem;
+    font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;
+}
+.form-title { color: var(--primary-color); margin-bottom: 2.5rem; font-weight: 400; font-size: 1.3rem; }
+.input-group { position: relative; margin-bottom: 2.5rem; text-align: left; }
+.input-group i:not(.toggle-password) { position: absolute; top: 50%; transform: translateY(-50%); left: 1.25rem;
+    color: var(--text-color); opacity: 0.4; transition: all 0.3s ease; z-index: 2; font-size: 0.9rem;
+}
+.input-group input {
+    width: 100%; background: var(--input-bg); border: 1px solid var(--border-color);
+    border-radius: var(--radius-md); padding: 1.2rem 1.25rem 1.2rem 3.5rem; font-size: 1rem; color: var(--primary-color);
+    outline: none; transition: all 0.3s ease;
+}
+.input-group input:focus { border-color: var(--link-color); box-shadow: 0 0 20px rgba(0, 198, 255, 0.2); }
+.input-group input:focus ~ i:not(.toggle-password) { color: var(--link-color); }
+.input-group label {
+    position: absolute; top: 50%; transform: translateY(-50%); left: 3.5rem; color: var(--text-color);
+    pointer-events: none; transition: all 0.3s ease; font-size: 1rem;
+}
+.input-group input:not(:placeholder-shown) + label,
+.input-group input:focus + label {
+    top: -1rem; left: 0.5rem; font-size: 0.8rem; color: var(--link-color); padding: 0 0.5rem; background: #07031e;
+}
+.toggle-password { position: absolute; top: 50%; transform: translateY(-50%); right: 1.25rem; cursor: pointer; opacity: 0.6; transition: opacity 0.3s; }
+.toggle-password:hover { opacity: 1; }
+
+.error-message {
+    display: none; position: absolute; left: 0.5rem; bottom: -1.5rem; font-size: 0.8rem; color: var(--error-color);
+}
+.input-group.invalid input { border-color: var(--error-color); }
+.input-group.invalid .error-message { display: block; animation: shake 0.3s; }
+@keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);}}
+
+.options { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; margin: -1.25rem 0 2.25rem 0; }
+.remember-me { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+a.form-link { color: var(--link-color); text-decoration: none; transition: filter 0.3s; }
+.form-switch { margin-top: 2rem; font-size: 0.95rem; }
+
+.btn {
+    width: 100%; padding: 1.1rem; border: none; border-radius: var(--radius-md); background: var(--aurora-gradient);
+    background-size: 200% auto; color: var(--primary-color); font-size: 1.1rem;
+    font-weight: 600; cursor: pointer;
+    transition: all 0.4s ease; position: relative; overflow: hidden;
+}
+.btn:hover:not(:disabled) { background-position: right center; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 198, 255, 0.3); }
+.btn:disabled { opacity: 0.7; cursor: not-allowed; }
+.btn .fa-spinner { display: none; }
+.btn.loading .btn-text { visibility: hidden; }
+.btn.loading .fa-spinner { display: inline-block; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);}
+@keyframes spin { 100% { transform: translate(-50%,-50%) rotate(360deg); } }
+
+.social-logins { margin-top: 2rem; }
+.social-logins p { margin-bottom: 1.25rem; position: relative; opacity: 0.7; }
+.social-logins p::before, .social-logins p::after { content:''; position: absolute; top: 50%; width: 30%; height: 1px; background: var(--border-color); }
+.social-logins p::before { left: 0; } .social-logins p::after { right: 0; }
+.social-icons { display: flex; justify-content: center; gap: 1.25rem; }
+.social-icon { width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--border-color); display: flex;
+    justify-content: center; align-items: center; color: var(--text-color); font-size: 1.3em; text-decoration: none;
+    transition: all 0.3s ease;
+}
+.social-icon:hover { transform: translateY(-3px); border-color: var(--link-color); color: var(--link-color); }
+.message { margin-top: 1.25rem; padding: 0.8rem; border-radius: var(--radius-md); font-size: 0.9rem; display: none; animation: fadeIn 0.5s; }
+.message.success { background-color: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.5); color: var(--success-color); }
+.message.error { background-color: rgba(255, 92, 122, 0.1); border: 1px solid rgba(255, 92, 122, 0.5); color: var(--error-color); }
+.password-strength { margin: -1.5rem 0 2.25rem 0; }
+.strength-bar-container { height: 6px; background: var(--input-bg); border-radius: 3px; overflow: hidden;}
+.strength-bar { height: 100%; transition: all 0.4s ease; width: 0%; border-radius: 3px;}
+.strength-text { font-size: 0.8rem; opacity: 0.7; display: block; text-align: right; margin-top: 0.5rem; height: 1em;}
+.form-info-text { font-size: 1rem; color: var(--text-color); margin-bottom: 2rem; line-height: 1.6; }
+
+.pincode-input-container { display: flex; gap: 0.75rem; justify-content: center; margin-bottom: 2.25rem; }
+.pincode-input { width: 50px; height: 60px; text-align: center; font-size: 1.8em; font-weight: 600;
+    background: var(--input-bg); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--primary-color);
+    line-height: 60px; outline: none; transition: all 0.3s;
+}
+.pincode-input:focus { border-color: var(--link-color); transform: translateY(-2px); box-shadow: 0 0 20px rgba(0, 198, 255, 0.2); }
+.pincode-input:valid { border-color: var(--success-color); }
+
+.success-icon { font-size: 4em; color: var(--success-color); margin-bottom: 1.25rem; animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+@keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.credits { font-size: 0.9rem; position: fixed; bottom: 20px; left: 0; right: 0; text-align: center;
+    color: rgba(192, 200, 243, 0.5); z-index: 5; pointer-events: none; transition: opacity 0.5s ease;
+}
+
+@media (max-width: 550px) {
+    body { padding: 0; align-items: stretch; }
+    .container { height: 100%; display: flex; align-items: center; justify-content: center; }
+    .form-wrapper { padding: 2.5rem 1.5rem; border-radius: 0; border: none; box-shadow: none; background: transparent; backdrop-filter: none; }
+    .credits { display: none; }
+}
